@@ -1,14 +1,15 @@
 {
-    "name": "application-name"
-  , "version": "0.0.1"
-  , "private": true
-  , "scripts": {
-        "start": "node ./bin/www"
+    "name": "simple-nodejs-application",
+    "version": "0.0.1",
+    "private": true,
+    "author": "Tomasz Siemienik",
+    "dependencies": {
+      "express": "2.5.8",
+      "jade": ">=1.11.0",
+      "mongodb": ">=2.1.16",
+      "monk": ">=1.0.1"
+    },
+    "scripts": {
+      "test": "mocha"
     }
-  , "dependencies": {
-      "express": "2.5.8"
-    , "jade": ">=1.11.0"
-    , "mongodb": ">=2.1.16"
-    , "monk": ">=1.0.1"
-  }
 }

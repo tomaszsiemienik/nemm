@@ -29,15 +29,19 @@ app.configure('production', function(){
 
 // Routes
 
-app.get('/test5', routes.index);
-app.get('/test44', function(req, res) {
+app.get('/index', routes.index);
+app.get('/test', function(req, res) {
   res.json({ok:'true'});
 });
 
 app.get('/', function(req, res) {
-  res.json({ message: 'hooray! welcome to our api!' });
+  res.json('hooray! welcome to our api!');
 });
 
 app.listen(3001, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });
+
+exports.closeServer = function() {
+    server.close();
+}
