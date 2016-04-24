@@ -1,7 +1,4 @@
-
-/**
- * Module dependencies.
- */
+// Dependencies
 
 var express = require('express'),
     routes = require('./routes');
@@ -29,6 +26,7 @@ app.configure('production', function(){
 
 // Routes
 
+app.get('/books', routes.books);
 app.get('/index', routes.index);
 app.get('/test', function(req, res) {
   res.json({ok:'true'});
