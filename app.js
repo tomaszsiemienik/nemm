@@ -25,10 +25,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressSession({secret: 'max', saveUninitialized: false, resave: false}));
 
 // Routes
+var booksRoutes = require('./routes/books');
 
 app.get('/', function(req, res) {
     res.status(200).type('json').json('hooray! welcome to our api!').end();
 });
+
+app.get('/books', booksRoutes);
 
 if (!module.parent) {
     app.set('port', 3001);
