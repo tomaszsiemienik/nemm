@@ -31,7 +31,8 @@ app.get('/', function(req, res) {
     res.status(200).type('json').json('hooray! welcome to our api!').end();
 });
 
-app.get('/books', booksRoutes);
+app.all('/books', booksRoutes);
+app.delete('/books/:id', booksRoutes);
 
 if (!module.parent) {
     app.set('port', 3001);
