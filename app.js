@@ -32,7 +32,7 @@ app.get('/', function(req, res) {
 });
 
 app.all('/books', booksRoutes);
-app.delete('/books/:id', booksRoutes);
+app.all('/books/:id', booksRoutes);
 
 if (!module.parent) {
     app.set('port', 3001);
