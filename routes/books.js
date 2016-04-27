@@ -26,18 +26,29 @@ router.get('/books', function(req, res, next) {
 
 //add book
 router.post('/books', function(req, res, next) {
-    var book = new booksData({
-        name: req.body.name,
-        author: req.body.author
-    });
+    req.checkBody("name", "Name of the book is required (10-500 characters).").isLength({min:10, max:500})
+    req.checkBody("author", "Author of the book is required (3-100 characters).").isLength({min:3, max: 100});
 
-    book.save()
-       .then(function() {
-            res.status(201)
-                .type('json')
-                .json(book.toJSON())
-                .end();
-       });
+    var errors = req.validationErrors();
+    if (errors) {
+        res.status(404)
+            .type('json')
+            .json(errors)
+            .end();
+    } else {
+        var book = new booksData({
+            name: req.body.name,
+            author: req.body.author
+        });
+
+        book.save()
+            .then(function () {
+                res.status(201)
+                    .type('json')
+                    .json(book.toJSON())
+                    .end();
+            });
+    }
 });
 
 //get single book
@@ -62,17 +73,28 @@ router.get('/books/:id', function(req, res, next) {
 
 //update book
 router.put('/books/:id', function(req, res, next) {
-    booksData.findById(req.params.id, function(err, doc) {
-        doc.name = req.body.name;
-        doc.author = req.body.author;
-        doc.save()
-            .then(function() {
-            res.status(200)
-                .type('json')
-                .json(doc.toJSON())
-                .end();
+    req.checkBody("name", "Name of the book is required (10-500 characters).").isLength({min:10, max:500})
+    req.checkBody("author", "Author of the book is required (3-100 characters).").isLength({min:3, max: 100});
+
+    var errors = req.validationErrors();
+    if (errors) {
+        res.status(404)
+            .type('json')
+            .json(errors)
+            .end();
+    } else {
+        booksData.findById(req.params.id, function (err, doc) {
+            doc.name = req.body.name;
+            doc.author = req.body.author;
+            doc.save()
+                .then(function () {
+                    res.status(200)
+                        .type('json')
+                        .json(doc.toJSON())
+                        .end();
+                });
         });
-    });
+    }
 });
 
 //remove book
